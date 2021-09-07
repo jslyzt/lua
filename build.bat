@@ -12,10 +12,12 @@
 @set RC=rc
 @set CP=copy
  
-@set DBG_CFLAGS=/nologo /c /Zi /Od /Ob0 /RTC1 /MD
+@set DBG_CFLAGS=/nologo /c /Zi /Od /Ob0 /RTC1
 @set CFLAGS=/nologo /c /O2 /W3
 @set CFLAGS_MD=/MD
+@set CFLAGS_MDD=/MDd
 @set CFLAGS_MT=/MT
+@set CFLAGS_MTD=/MTd
 @set LDFLAGS=
  
 @set LUA_CFLAGS=/DNDEBUG /D_WINDOWS /DWIN32 /DWINNT
@@ -32,23 +34,27 @@ cd src
 del *.lib *.obj *.manifest *.exp *.dll *.exe
 
 @rem Multithreaded, dynamic link
+%CC% %CFLAGS_MDD% %DBG_CFLAGS% %LUA_CFLAGS% %LUA_SRC%
+%AR% /OUT:lua54-mdd.lib *.obj
+%LD% /DLL /OUT:lua54-mdd.dll *.obj
+del *.obj *.manifest
+
 %CC% %CFLAGS_MD% %CFLAGS% %LUA_CFLAGS% %LUA_SRC%
 %AR% /OUT:lua54-md.lib *.obj
 %LD% /DLL /OUT:lua54-md.dll *.obj
 del *.obj *.manifest
  
 @rem Multithreaded, static link
+%CC% %CFLAGS_MTD% %DBG_CFLAGS% %LUA_CFLAGS% %LUA_SRC%
+%AR% /OUT:lua54-mtd.lib *.obj
+%LD% /DLL /OUT:lua54-mtd.dll *.obj
+del *.obj *.manifest
+
 %CC% %CFLAGS_MT% %CFLAGS% %LUA_CFLAGS% %LUA_SRC%
 %AR% /OUT:lua54-mt.lib *.obj
 %LD% /DLL /OUT:lua54-mt.dll *.obj
 del *.obj *.manifest
  
-@rem Debug, /MD
-%CC% %DBG_CFLAGS% %LUA_CFLAGS% %LUA_SRC%
-%AR% /OUT:lua54-dbg.lib *.obj
-%LD% /DLL /OUT:lua54-dbg.dll *.obj
-del *.obj *.manifest
-
 @rem Multithreaded, dynamic lua.exe
 %CC% %CFLAGS_MT% %CFLAGS% %LUA_CFLAGS% lua.c
 %LD% /OUT:lua.exe lua.obj lua54-mt.lib %DEP_LIB%
