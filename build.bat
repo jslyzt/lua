@@ -35,34 +35,34 @@ del *.lib *.obj *.manifest *.exp *.dll *.exe
 
 @rem Multithreaded, dynamic link
 %CC% %CFLAGS_MDD% %DBG_CFLAGS% %LUA_CFLAGS% %LUA_SRC%
-%AR% /OUT:lua54-mdd.lib *.obj
-%LD% /DLL /OUT:lua54-mdd.dll *.obj
+%AR% /OUT:lua51-mdd.lib *.obj
+%LD% /DLL /OUT:lua51-mdd.dll *.obj
 del *.obj *.manifest
 
 %CC% %CFLAGS_MD% %CFLAGS% %LUA_CFLAGS% %LUA_SRC%
-%AR% /OUT:lua54-md.lib *.obj
-%LD% /DLL /OUT:lua54-md.dll *.obj
+%AR% /OUT:lua51-md.lib *.obj
+%LD% /DLL /OUT:lua51-md.dll *.obj
 del *.obj *.manifest
  
 @rem Multithreaded, static link
 %CC% %CFLAGS_MTD% %DBG_CFLAGS% %LUA_CFLAGS% %LUA_SRC%
-%AR% /OUT:lua54-mtd.lib *.obj
-%LD% /DLL /OUT:lua54-mtd.dll *.obj
+%AR% /OUT:lua51-mtd.lib *.obj
+%LD% /DLL /OUT:lua51-mtd.dll *.obj
 del *.obj *.manifest
 
 %CC% %CFLAGS_MT% %CFLAGS% %LUA_CFLAGS% %LUA_SRC%
-%AR% /OUT:lua54-mt.lib *.obj
-%LD% /DLL /OUT:lua54-mt.dll *.obj
+%AR% /OUT:lua51-mt.lib *.obj
+%LD% /DLL /OUT:lua51-mt.dll *.obj
 del *.obj *.manifest
  
 @rem Multithreaded, dynamic lua.exe
 %CC% %CFLAGS_MT% %CFLAGS% %LUA_CFLAGS% lua.c
-%LD% /OUT:lua.exe lua.obj lua54-mt.lib %DEP_LIB%
+%LD% /OUT:lua.exe lua.obj lua51-mt.lib %DEP_LIB%
 del *.obj *.manifest *.exp
 
 @rem Multithreaded, dynamic luac.exe
 %CC% %CFLAGS_MT% %CFLAGS% %LUA_CFLAGS% luac.c
-%LD% /OUT:luac.exe luac.obj lua54-mt.lib %DEP_LIB%
+%LD% /OUT:luac.exe luac.obj lua51-mt.lib %DEP_LIB%
 del *.obj *.manifest *.exp
  
 @goto :COPY
